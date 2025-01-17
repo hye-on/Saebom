@@ -1,7 +1,6 @@
 import { Injectable, OnModuleInit } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { Client, GatewayIntentBits, Events } from 'discord.js';
-import { ReadyListener } from '../listeners/handlers/ready.listener';
 import { InteractionListener } from '../listeners/handlers/interaction.listener';
 
 @Injectable()
@@ -10,7 +9,6 @@ export class DiscordService implements OnModuleInit {
 
   constructor(
     private readonly configService: ConfigService,
-    private readonly readyListener: ReadyListener,
     private readonly interactionListener: InteractionListener
   ) {
     this.client = new Client({
@@ -30,10 +28,6 @@ export class DiscordService implements OnModuleInit {
   }
 
   private registerListeners(): void {
-    this.client.once(Events.ClientReady, client => {
-      this.readyListener.handle(client);
-    });
-
     this.client.on(Events.InteractionCreate, async interaction => {
       await this.interactionListener.handle(interaction);
     });

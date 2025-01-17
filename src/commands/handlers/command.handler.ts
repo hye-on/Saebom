@@ -3,10 +3,12 @@ import { Collection, CommandInteraction } from 'discord.js';
 import { Command } from '../interfaces/command.interface';
 import * as fs from 'fs';
 import * as path from 'path';
-
+import { DiscordEventLogger } from '../../common/logger/discord.event.logger';
+import { LoggerService } from '../../common/logger/logger.service';
 @Injectable()
 export class CommandHandler implements OnModuleInit {
   private commands = new Collection<string, Command>();
+  constructor(private readonly discordLogger: DiscordEventLogger, private readonly logger: LoggerService) {}
 
   async onModuleInit() {
     await this.loadCommands();
@@ -22,9 +24,15 @@ export class CommandHandler implements OnModuleInit {
 
       if (command && command.data && command.execute) {
         this.commands.set(command.data.name, command);
-        console.log(`Loaded command: ${command.data.name}`);
+        this.logger.log('Command loaded', {
+          commandName: command.data.name,
+          filePath,
+        });
       } else {
-        console.warn(`[WARNING] The command at ${filePath} is missing "data" or "execute" property.`);
+        this.logger.warn('Invalid command structure', {
+          filePath,
+          reason: 'Missing data or execute property',
+        });
       }
     }
   }
@@ -33,14 +41,17 @@ export class CommandHandler implements OnModuleInit {
     const command = this.commands.get(interaction.commandName);
 
     if (!command) {
-      console.error(`No command matching ${interaction.commandName} was found.`);
+      this.discordLogger.logCommandError(interaction, new Error(`No command matching ${interaction.commandName}`));
       return;
     }
 
     try {
-      if (interaction.isChatInputCommand()) await command.execute(interaction);
+      if (interaction.isChatInputCommand()) {
+        await command.execute(interaction);
+        this.discordLogger.logCommand(interaction);
+      }
     } catch (error) {
-      console.error(error);
+      this.discordLogger.logCommandError(interaction, error instanceof Error ? error : new Error('Unknown error'));
       await interaction.reply({
         content: 'There was an error executing this command!',
         ephemeral: true,
@@ -49,7 +60,6 @@ export class CommandHandler implements OnModuleInit {
   }
 
   getCommands(): Collection<string, Command> {
-    console.log(this.commands.size);
     return this.commands;
   }
 }
