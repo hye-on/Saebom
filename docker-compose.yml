@@ -1,0 +1,35 @@
+# docker/docker-compose.yml
+services:
+  postgres:
+    container_name: saebom_postgres
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: saebom_admin
+      POSTGRES_PASSWORD: saebom1234
+      POSTGRES_DB: saebom
+    ports:
+      - '5432:5432'
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - saebom_network
+
+  pgadmin:
+    container_name: saebom_pgadmin
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@admin.com
+      PGADMIN_DEFAULT_PASSWORD: admin123
+    ports:
+      - '5050:80'
+    depends_on:
+      - postgres
+    networks:
+      - saebom_network
+
+volumes:
+  postgres_data:
+
+networks:
+  saebom_network:
+    driver: bridge
