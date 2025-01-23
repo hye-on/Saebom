@@ -1,0 +1,9 @@
+export { User } from './user.entity';
+export { Problem } from './problem.entity';
+export { UserProblemHistory } from './user-problem-history.entity';
+export { ReviewSchedule } from './review-schedule.entity';
+export { MockExam } from './mock-exam.entity';
+export { MockExamProblem } from './mock-exam-problem.entity';
+export { UserMockExamResult } from './user-mock-exam-result.entity';
+export { Notification } from './notification.entity';
+export { MotivationMessage } from './motivation-message.entity';
