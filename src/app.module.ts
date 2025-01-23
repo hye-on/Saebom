@@ -1,12 +1,13 @@
 import { Module } from '@nestjs/common';
+import { ConfigModule } from '@nestjs/config';
+import { LoggerModule } from 'nestjs-pino';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { LoggerModule } from 'nestjs-pino';
-import { ConfigModule } from '@nestjs/config';
-import { DiscordModule } from './discord/discord.module';
 import { CommandsModule } from './commands/commands.module';
-import { ListenersModule } from './listeners/listeners.modules';
 import { AppLoggerModule } from './common/logger/logger.module';
+import { DiscordModule } from './discord/discord.module';
+import { ListenersModule } from './listeners/listeners.modules';
+import { DatabaseModule } from './database/database.module';
 
 @Module({
   imports: [
@@ -24,6 +25,7 @@ import { AppLoggerModule } from './common/logger/logger.module';
     DiscordModule,
     CommandsModule,
     ListenersModule,
+    DatabaseModule,
   ],
   controllers: [AppController],
   providers: [AppService],
