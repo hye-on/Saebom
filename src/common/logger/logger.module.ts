@@ -8,7 +8,7 @@ import { LoggerService } from './logger.service';
     LoggerModule.forRoot({
       pinoHttp: {
         transport: process.env.NODE_ENV !== 'prod' ? { target: 'pino-pretty' } : undefined,
-        level: process.env.NODE_ENV !== 'prod' ? 'debug' : 'log', // 'info' -> 'log'로 수정
+        level: process.env.NODE_ENV !== 'prod' ? 'debug' : 'log',
         autoLogging: false,
         base: {
           app: 'discord-bot',

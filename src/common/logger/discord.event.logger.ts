@@ -1,4 +1,3 @@
-// src/common/logger/discord-logger.middleware.ts
 import { Injectable } from '@nestjs/common';
 import { Logger } from 'nestjs-pino';
 import { CommandInteraction } from 'discord.js';
