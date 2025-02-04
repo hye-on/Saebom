@@ -1,7 +1,5 @@
 {
-  "namespaces": [
-    "public"
-  ],
+  "namespaces": ["public"],
   "name": "public",
   "tables": [
     {
@@ -73,11 +71,7 @@
           "primary": false,
           "nullable": false,
           "default": "'medium'",
-          "enumItems": [
-            "low",
-            "medium",
-            "high"
-          ],
+          "enumItems": ["low", "medium", "high"],
           "mappedType": "enum"
         }
       },
@@ -86,9 +80,7 @@
       "indexes": [
         {
           "keyName": "mock_exam_pkey",
-          "columnNames": [
-            "id"
-          ],
+          "columnNames": ["id"],
           "composite": false,
           "constraint": true,
           "primary": true,
@@ -167,9 +159,7 @@
       "indexes": [
         {
           "keyName": "motivation_message_pkey",
-          "columnNames": [
-            "id"
-          ],
+          "columnNames": ["id"],
           "composite": false,
           "constraint": true,
           "primary": true,
@@ -268,11 +258,7 @@
           "primary": false,
           "nullable": false,
           "default": "'descriptive'",
-          "enumItems": [
-            "keyword",
-            "blank",
-            "descriptive"
-          ],
+          "enumItems": ["keyword", "blank", "descriptive"],
           "mappedType": "enum"
         },
         "difficulty_level": {
@@ -283,11 +269,7 @@
           "primary": false,
           "nullable": false,
           "default": "'medium'",
-          "enumItems": [
-            "low",
-            "medium",
-            "high"
-          ],
+          "enumItems": ["low", "medium", "high"],
           "mappedType": "enum"
         },
         "category": {
@@ -322,9 +304,7 @@
       "indexes": [
         {
           "keyName": "problem_pkey",
-          "columnNames": [
-            "id"
-          ],
+          "columnNames": ["id"],
           "composite": false,
           "constraint": true,
           "primary": true,
@@ -400,10 +380,7 @@
       "indexes": [
         {
           "keyName": "mock_exam_problem_pkey",
-          "columnNames": [
-            "exam_id",
-            "problem_id"
-          ],
+          "columnNames": ["exam_id", "problem_id"],
           "composite": true,
           "constraint": true,
           "primary": true,
@@ -414,25 +391,17 @@
       "foreignKeys": {
         "mock_exam_problem_exam_id_foreign": {
           "constraintName": "mock_exam_problem_exam_id_foreign",
-          "columnNames": [
-            "exam_id"
-          ],
+          "columnNames": ["exam_id"],
           "localTableName": "public.mock_exam_problem",
-          "referencedColumnNames": [
-            "id"
-          ],
+          "referencedColumnNames": ["id"],
           "referencedTableName": "public.mock_exam",
           "updateRule": "cascade"
         },
         "mock_exam_problem_problem_id_foreign": {
           "constraintName": "mock_exam_problem_problem_id_foreign",
-          "columnNames": [
-            "problem_id"
-          ],
+          "columnNames": ["problem_id"],
           "localTableName": "public.mock_exam_problem",
-          "referencedColumnNames": [
-            "id"
-          ],
+          "referencedColumnNames": ["id"],
           "referencedTableName": "public.problem",
           "updateRule": "cascade"
         }
@@ -535,9 +504,7 @@
       "schema": "public",
       "indexes": [
         {
-          "columnNames": [
-            "discord_user_id"
-          ],
+          "columnNames": ["discord_user_id"],
           "composite": false,
           "keyName": "user_discord_user_id_unique",
           "constraint": true,
@@ -546,9 +513,7 @@
         },
         {
           "keyName": "user_pkey",
-          "columnNames": [
-            "id"
-          ],
+          "columnNames": ["id"],
           "composite": false,
           "constraint": true,
           "primary": true,
@@ -624,9 +589,7 @@
       "indexes": [
         {
           "keyName": "review_schedule_pkey",
-          "columnNames": [
-            "id"
-          ],
+          "columnNames": ["id"],
           "composite": false,
           "constraint": true,
           "primary": true,
@@ -637,25 +600,17 @@
       "foreignKeys": {
         "review_schedule_user_id_foreign": {
           "constraintName": "review_schedule_user_id_foreign",
-          "columnNames": [
-            "user_id"
-          ],
+          "columnNames": ["user_id"],
           "localTableName": "public.review_schedule",
-          "referencedColumnNames": [
-            "id"
-          ],
+          "referencedColumnNames": ["id"],
           "referencedTableName": "public.user",
           "updateRule": "cascade"
         },
         "review_schedule_problem_id_foreign": {
           "constraintName": "review_schedule_problem_id_foreign",
-          "columnNames": [
-            "problem_id"
-          ],
+          "columnNames": ["problem_id"],
           "localTableName": "public.review_schedule",
-          "referencedColumnNames": [
-            "id"
-          ],
+          "referencedColumnNames": ["id"],
           "referencedTableName": "public.problem",
           "updateRule": "cascade"
         }
@@ -729,11 +684,7 @@
           "autoincrement": false,
           "primary": false,
           "nullable": false,
-          "enumItems": [
-            "daily_problem",
-            "review",
-            "streak"
-          ],
+          "enumItems": ["daily_problem", "review", "streak"],
           "mappedType": "enum"
         },
         "is_read": {
@@ -752,9 +703,7 @@
       "indexes": [
         {
           "keyName": "notification_pkey",
-          "columnNames": [
-            "id"
-          ],
+          "columnNames": ["id"],
           "composite": false,
           "constraint": true,
           "primary": true,
@@ -765,13 +714,9 @@
       "foreignKeys": {
         "notification_user_id_foreign": {
           "constraintName": "notification_user_id_foreign",
-          "columnNames": [
-            "user_id"
-          ],
+          "columnNames": ["user_id"],
           "localTableName": "public.notification",
-          "referencedColumnNames": [
-            "id"
-          ],
+          "referencedColumnNames": ["id"],
           "referencedTableName": "public.user",
           "updateRule": "cascade"
         }
@@ -862,9 +807,7 @@
       "indexes": [
         {
           "keyName": "user_mock_exam_result_pkey",
-          "columnNames": [
-            "id"
-          ],
+          "columnNames": ["id"],
           "composite": false,
           "constraint": true,
           "primary": true,
@@ -875,25 +818,17 @@
       "foreignKeys": {
         "user_mock_exam_result_user_id_foreign": {
           "constraintName": "user_mock_exam_result_user_id_foreign",
-          "columnNames": [
-            "user_id"
-          ],
+          "columnNames": ["user_id"],
           "localTableName": "public.user_mock_exam_result",
-          "referencedColumnNames": [
-            "id"
-          ],
+          "referencedColumnNames": ["id"],
           "referencedTableName": "public.user",
           "updateRule": "cascade"
         },
         "user_mock_exam_result_exam_id_foreign": {
           "constraintName": "user_mock_exam_result_exam_id_foreign",
-          "columnNames": [
-            "exam_id"
-          ],
+          "columnNames": ["exam_id"],
           "localTableName": "public.user_mock_exam_result",
-          "referencedColumnNames": [
-            "id"
-          ],
+          "referencedColumnNames": ["id"],
           "referencedTableName": "public.mock_exam",
           "updateRule": "cascade"
         }
@@ -1002,9 +937,7 @@
       "indexes": [
         {
           "keyName": "user_problem_history_pkey",
-          "columnNames": [
-            "id"
-          ],
+          "columnNames": ["id"],
           "composite": false,
           "constraint": true,
           "primary": true,
@@ -1015,25 +948,17 @@
       "foreignKeys": {
         "user_problem_history_user_id_foreign": {
           "constraintName": "user_problem_history_user_id_foreign",
-          "columnNames": [
-            "user_id"
-          ],
+          "columnNames": ["user_id"],
           "localTableName": "public.user_problem_history",
-          "referencedColumnNames": [
-            "id"
-          ],
+          "referencedColumnNames": ["id"],
           "referencedTableName": "public.user",
           "updateRule": "cascade"
         },
         "user_problem_history_problem_id_foreign": {
           "constraintName": "user_problem_history_problem_id_foreign",
-          "columnNames": [
-            "problem_id"
-          ],
+          "columnNames": ["problem_id"],
           "localTableName": "public.user_problem_history",
-          "referencedColumnNames": [
-            "id"
-          ],
+          "referencedColumnNames": ["id"],
           "referencedTableName": "public.problem",
           "updateRule": "cascade"
         }
