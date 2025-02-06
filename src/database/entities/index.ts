@@ -7,3 +7,4 @@ export { MockExamProblem } from './mock-exam-problem.entity';
 export { UserMockExamResult } from './user-mock-exam-result.entity';
 export { Notification } from './notification.entity';
 export { MotivationMessage } from './motivation-message.entity';
+export { Channel as ChannelConfig } from './channel.entity';

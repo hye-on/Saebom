@@ -7,3 +7,4 @@ export * from './answer.type';
 export * from './user-answer.type';
 export * from './answer-details.type';
 export * from './review-step.type';
+export * from './channel.type';
