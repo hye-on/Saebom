@@ -3,7 +3,7 @@ import { Problem } from './problem.entity';
 import { MockExam } from './mock-exam.entity';
 import { BaseEntity } from './base.entity';
 
-@Entity()
+@Entity({ tableName: 'mock_exam_problems' })
 export class MockExamProblem extends BaseEntity {
   @ManyToOne(() => MockExam, { primary: true })
   exam!: MockExam;

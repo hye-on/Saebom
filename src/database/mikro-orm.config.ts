@@ -1,5 +1,5 @@
 import { defineConfig } from '@mikro-orm/postgresql';
-import { LoadStrategy } from '@mikro-orm/core';
+import { LoadStrategy, UnderscoreNamingStrategy } from '@mikro-orm/core';
 import * as entities from './entities';
 export default defineConfig({
   host: 'localhost',
@@ -10,6 +10,8 @@ export default defineConfig({
   entities: Object.values(entities),
   debug: true,
   loadStrategy: LoadStrategy.JOINED,
+  namingStrategy: UnderscoreNamingStrategy,
+  allowGlobalContext: true,
   migrations: {
     path: './src/database/migrations',
     pathTs: './src/database/migrations',

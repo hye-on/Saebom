@@ -3,7 +3,7 @@ import { Entity, Property, PrimaryKey, Enum } from '@mikro-orm/core';
 import { BaseEntity } from './base.entity';
 import { Difficulty } from '../types';
 
-@Entity()
+@Entity({ tableName: 'mock_exams' })
 export class MockExam extends BaseEntity {
   @PrimaryKey()
   id!: number;

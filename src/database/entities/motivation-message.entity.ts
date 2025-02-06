@@ -2,7 +2,7 @@ import { Entity, Property, PrimaryKey, Enum } from '@mikro-orm/core';
 import { BaseEntity } from './base.entity';
 import { MotivationType } from '../types';
 
-@Entity()
+@Entity({ tableName: 'motivation_messages' })
 export class MotivationMessage extends BaseEntity {
   @PrimaryKey()
   id!: number;

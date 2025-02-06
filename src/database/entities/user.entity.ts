@@ -1,7 +1,7 @@
 import { Entity, Property, PrimaryKey } from '@mikro-orm/core';
 import { BaseEntity } from './base.entity';
 
-@Entity()
+@Entity({ tableName: 'users' })
 export class User extends BaseEntity {
   @PrimaryKey()
   id!: number;
