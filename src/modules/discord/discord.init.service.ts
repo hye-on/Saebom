@@ -1,20 +1,17 @@
 import { Injectable, OnModuleInit } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { Client, GatewayIntentBits, Events } from 'discord.js';
-import { InteractionListener } from '../listeners/handlers/interaction.listener';
+import { Client, Events } from 'discord.js';
+import { SlashInteractionListener } from '../interaction/listeners/slash.interaction.listener';
+import { GuildCreateListener } from '../interaction/listeners/guild-create.listener';
 
 @Injectable()
 export class DiscordService implements OnModuleInit {
-  private client: Client;
-
   constructor(
+    private readonly client: Client,
     private readonly configService: ConfigService,
-    private readonly interactionListener: InteractionListener
-  ) {
-    this.client = new Client({
-      intents: [GatewayIntentBits.Guilds],
-    });
-  }
+    private readonly slashInteractionListener: SlashInteractionListener,
+    private readonly guildCreateListener: GuildCreateListener
+  ) {}
 
   async onModuleInit(): Promise<void> {
     const token = this.configService.get<string>('DISCORD_TOKEN');
@@ -29,7 +26,10 @@ export class DiscordService implements OnModuleInit {
 
   private registerListeners(): void {
     this.client.on(Events.InteractionCreate, async interaction => {
-      await this.interactionListener.handle(interaction);
+      await this.slashInteractionListener.handle(interaction);
+    });
+    this.client.on(Events.GuildCreate, async guild => {
+      await this.guildCreateListener.handle(guild);
     });
   }
 }

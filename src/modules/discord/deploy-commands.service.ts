@@ -1,8 +1,9 @@
 import { REST, Routes } from 'discord.js';
 import { Injectable, OnApplicationBootstrap } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { CommandHandler } from '../commands/handlers/command.handler';
-import { LoggerService } from '../common/logger/logger.service';
+
+import { LoggerService } from '../../common/logger/logger.service';
+import { CommandRegistry } from '../interaction/handlers/commands/command.registry';
 
 @Injectable()
 export class DeployCommandsService implements OnApplicationBootstrap {
@@ -12,7 +13,7 @@ export class DeployCommandsService implements OnApplicationBootstrap {
 
   constructor(
     private readonly configService: ConfigService,
-    private readonly commandHandler: CommandHandler,
+    private readonly commandRegistry: CommandRegistry,
     private readonly logger: LoggerService
   ) {
     const token = this.configService.get<string>('DISCORD_TOKEN');
@@ -33,7 +34,7 @@ export class DeployCommandsService implements OnApplicationBootstrap {
 
   async deployCommands(): Promise<void> {
     try {
-      const commands = Array.from(this.commandHandler.getCommands().values()).map(command => command.data.toJSON());
+      const commands = Array.from(this.commandRegistry.getCommands().values()).map(command => command.data.toJSON());
 
       this.logger.log('Started refreshing application commands', {
         commandCount: commands.length,
