@@ -3,7 +3,7 @@ import { User } from './user.entity';
 import { BaseEntity } from './base.entity';
 import { NotificationType } from '../types';
 
-@Entity()
+@Entity({ tableName: 'notifications' })
 export class Notification extends BaseEntity {
   @PrimaryKey()
   id!: number;

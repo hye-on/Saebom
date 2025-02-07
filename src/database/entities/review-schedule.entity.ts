@@ -3,7 +3,7 @@ import { User } from './user.entity';
 import { Problem } from './problem.entity';
 import { ReviewStep } from '../types';
 
-@Entity()
+@Entity({ tableName: 'review_schedules' })
 export class ReviewSchedule extends BaseEntity {
   @PrimaryKey()
   id!: number;

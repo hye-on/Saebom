@@ -2,7 +2,7 @@ import { Entity, Property, PrimaryKey, Enum } from '@mikro-orm/core';
 import { BaseEntity } from './base.entity';
 import { Difficulty, ProblemType, CSCategory, ProblemAnswer } from '../types';
 
-@Entity()
+@Entity({ tableName: 'problems' })
 export class Problem extends BaseEntity {
   @PrimaryKey()
   id!: number;

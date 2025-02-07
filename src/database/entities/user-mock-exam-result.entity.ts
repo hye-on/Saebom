@@ -3,7 +3,7 @@ import { User } from './user.entity';
 import { MockExam } from './mock-exam.entity';
 import { BaseEntity } from './base.entity';
 
-@Entity()
+@Entity({ tableName: 'user_mock_exam_results' })
 export class UserMockExamResult extends BaseEntity {
   @PrimaryKey()
   id!: number;

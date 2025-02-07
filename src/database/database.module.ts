@@ -4,6 +4,5 @@ import config from './mikro-orm.config';
 
 @Module({
   imports: [MikroOrmModule.forRoot(config)],
-  exports: [MikroOrmModule],
 })
 export class DatabaseModule {}

@@ -45,6 +45,100 @@
           "length": 6,
           "mappedType": "datetime"
         },
+        "guild_id": {
+          "name": "guild_id",
+          "type": "varchar(255)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 255,
+          "mappedType": "string"
+        },
+        "channel_id": {
+          "name": "channel_id",
+          "type": "varchar(255)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 255,
+          "mappedType": "string"
+        },
+        "type": {
+          "name": "type",
+          "type": "text",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "enumItems": [
+            "cs",
+            "review",
+            "chat"
+          ],
+          "mappedType": "enum"
+        }
+      },
+      "name": "channels",
+      "schema": "public",
+      "indexes": [
+        {
+          "keyName": "channels_pkey",
+          "columnNames": [
+            "id"
+          ],
+          "composite": false,
+          "constraint": true,
+          "primary": true,
+          "unique": true
+        }
+      ],
+      "checks": [],
+      "foreignKeys": {},
+      "nativeEnums": {}
+    },
+    {
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "unsigned": false,
+          "autoincrement": true,
+          "primary": true,
+          "nullable": false,
+          "mappedType": "integer"
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamptz",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 6,
+          "mappedType": "datetime"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamptz",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 6,
+          "mappedType": "datetime"
+        },
+        "deleted_at": {
+          "name": "deleted_at",
+          "type": "timestamptz",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": true,
+          "length": 6,
+          "mappedType": "datetime"
+        },
         "title": {
           "name": "title",
           "type": "varchar(255)",
@@ -81,11 +175,11 @@
           "mappedType": "enum"
         }
       },
-      "name": "mock_exam",
+      "name": "mock_exams",
       "schema": "public",
       "indexes": [
         {
-          "keyName": "mock_exam_pkey",
+          "keyName": "mock_exams_pkey",
           "columnNames": [
             "id"
           ],
@@ -162,11 +256,11 @@
           "mappedType": "string"
         }
       },
-      "name": "motivation_message",
+      "name": "motivation_messages",
       "schema": "public",
       "indexes": [
         {
-          "keyName": "motivation_message_pkey",
+          "keyName": "motivation_messages_pkey",
           "columnNames": [
             "id"
           ],
@@ -317,11 +411,11 @@
           "mappedType": "array"
         }
       },
-      "name": "problem",
+      "name": "problems",
       "schema": "public",
       "indexes": [
         {
-          "keyName": "problem_pkey",
+          "keyName": "problems_pkey",
           "columnNames": [
             "id"
           ],
@@ -395,11 +489,11 @@
           "mappedType": "integer"
         }
       },
-      "name": "mock_exam_problem",
+      "name": "mock_exam_problems",
       "schema": "public",
       "indexes": [
         {
-          "keyName": "mock_exam_problem_pkey",
+          "keyName": "mock_exam_problems_pkey",
           "columnNames": [
             "exam_id",
             "problem_id"
@@ -412,28 +506,28 @@
       ],
       "checks": [],
       "foreignKeys": {
-        "mock_exam_problem_exam_id_foreign": {
-          "constraintName": "mock_exam_problem_exam_id_foreign",
+        "mock_exam_problems_exam_id_foreign": {
+          "constraintName": "mock_exam_problems_exam_id_foreign",
           "columnNames": [
             "exam_id"
           ],
-          "localTableName": "public.mock_exam_problem",
+          "localTableName": "public.mock_exam_problems",
           "referencedColumnNames": [
             "id"
           ],
-          "referencedTableName": "public.mock_exam",
+          "referencedTableName": "public.mock_exams",
           "updateRule": "cascade"
         },
-        "mock_exam_problem_problem_id_foreign": {
-          "constraintName": "mock_exam_problem_problem_id_foreign",
+        "mock_exam_problems_problem_id_foreign": {
+          "constraintName": "mock_exam_problems_problem_id_foreign",
           "columnNames": [
             "problem_id"
           ],
-          "localTableName": "public.mock_exam_problem",
+          "localTableName": "public.mock_exam_problems",
           "referencedColumnNames": [
             "id"
           ],
-          "referencedTableName": "public.problem",
+          "referencedTableName": "public.problems",
           "updateRule": "cascade"
         }
       },
@@ -531,7 +625,7 @@
           "mappedType": "boolean"
         }
       },
-      "name": "user",
+      "name": "users",
       "schema": "public",
       "indexes": [
         {
@@ -539,13 +633,13 @@
             "discord_user_id"
           ],
           "composite": false,
-          "keyName": "user_discord_user_id_unique",
+          "keyName": "users_discord_user_id_unique",
           "constraint": true,
           "primary": false,
           "unique": true
         },
         {
-          "keyName": "user_pkey",
+          "keyName": "users_pkey",
           "columnNames": [
             "id"
           ],
@@ -619,11 +713,11 @@
           "mappedType": "boolean"
         }
       },
-      "name": "review_schedule",
+      "name": "review_schedules",
       "schema": "public",
       "indexes": [
         {
-          "keyName": "review_schedule_pkey",
+          "keyName": "review_schedules_pkey",
           "columnNames": [
             "id"
           ],
@@ -635,28 +729,28 @@
       ],
       "checks": [],
       "foreignKeys": {
-        "review_schedule_user_id_foreign": {
-          "constraintName": "review_schedule_user_id_foreign",
+        "review_schedules_user_id_foreign": {
+          "constraintName": "review_schedules_user_id_foreign",
           "columnNames": [
             "user_id"
           ],
-          "localTableName": "public.review_schedule",
+          "localTableName": "public.review_schedules",
           "referencedColumnNames": [
             "id"
           ],
-          "referencedTableName": "public.user",
+          "referencedTableName": "public.users",
           "updateRule": "cascade"
         },
-        "review_schedule_problem_id_foreign": {
-          "constraintName": "review_schedule_problem_id_foreign",
+        "review_schedules_problem_id_foreign": {
+          "constraintName": "review_schedules_problem_id_foreign",
           "columnNames": [
             "problem_id"
           ],
-          "localTableName": "public.review_schedule",
+          "localTableName": "public.review_schedules",
           "referencedColumnNames": [
             "id"
           ],
-          "referencedTableName": "public.problem",
+          "referencedTableName": "public.problems",
           "updateRule": "cascade"
         }
       },
@@ -747,11 +841,11 @@
           "mappedType": "boolean"
         }
       },
-      "name": "notification",
+      "name": "notifications",
       "schema": "public",
       "indexes": [
         {
-          "keyName": "notification_pkey",
+          "keyName": "notifications_pkey",
           "columnNames": [
             "id"
           ],
@@ -763,16 +857,16 @@
       ],
       "checks": [],
       "foreignKeys": {
-        "notification_user_id_foreign": {
-          "constraintName": "notification_user_id_foreign",
+        "notifications_user_id_foreign": {
+          "constraintName": "notifications_user_id_foreign",
           "columnNames": [
             "user_id"
           ],
-          "localTableName": "public.notification",
+          "localTableName": "public.notifications",
           "referencedColumnNames": [
             "id"
           ],
-          "referencedTableName": "public.user",
+          "referencedTableName": "public.users",
           "updateRule": "cascade"
         }
       },
@@ -857,11 +951,11 @@
           "mappedType": "datetime"
         }
       },
-      "name": "user_mock_exam_result",
+      "name": "user_mock_exam_results",
       "schema": "public",
       "indexes": [
         {
-          "keyName": "user_mock_exam_result_pkey",
+          "keyName": "user_mock_exam_results_pkey",
           "columnNames": [
             "id"
           ],
@@ -873,28 +967,28 @@
       ],
       "checks": [],
       "foreignKeys": {
-        "user_mock_exam_result_user_id_foreign": {
-          "constraintName": "user_mock_exam_result_user_id_foreign",
+        "user_mock_exam_results_user_id_foreign": {
+          "constraintName": "user_mock_exam_results_user_id_foreign",
           "columnNames": [
             "user_id"
           ],
-          "localTableName": "public.user_mock_exam_result",
+          "localTableName": "public.user_mock_exam_results",
           "referencedColumnNames": [
             "id"
           ],
-          "referencedTableName": "public.user",
+          "referencedTableName": "public.users",
           "updateRule": "cascade"
         },
-        "user_mock_exam_result_exam_id_foreign": {
-          "constraintName": "user_mock_exam_result_exam_id_foreign",
+        "user_mock_exam_results_exam_id_foreign": {
+          "constraintName": "user_mock_exam_results_exam_id_foreign",
           "columnNames": [
             "exam_id"
           ],
-          "localTableName": "public.user_mock_exam_result",
+          "localTableName": "public.user_mock_exam_results",
           "referencedColumnNames": [
             "id"
           ],
-          "referencedTableName": "public.mock_exam",
+          "referencedTableName": "public.mock_exams",
           "updateRule": "cascade"
         }
       },
@@ -1022,7 +1116,7 @@
           "referencedColumnNames": [
             "id"
           ],
-          "referencedTableName": "public.user",
+          "referencedTableName": "public.users",
           "updateRule": "cascade"
         },
         "user_problem_history_problem_id_foreign": {
@@ -1034,7 +1128,7 @@
           "referencedColumnNames": [
             "id"
           ],
-          "referencedTableName": "public.problem",
+          "referencedTableName": "public.problems",
           "updateRule": "cascade"
         }
       },
