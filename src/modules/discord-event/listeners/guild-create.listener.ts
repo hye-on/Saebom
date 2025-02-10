@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { Guild } from 'discord.js';
 import { Listener } from './interfaces/listener.interface';
 
-import { GuildHandler } from '@src/modules/interaction/handlers/guild/guild.handler';
+import { GuildHandler } from '@src/modules/discord-event/handlers/guild/guild.handler';
 
 @Injectable()
 export class GuildCreateListener implements Listener<Guild> {

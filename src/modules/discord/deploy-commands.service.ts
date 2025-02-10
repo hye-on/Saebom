@@ -3,7 +3,7 @@ import { Injectable, OnApplicationBootstrap } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 
 import { LoggerService } from '../../common/logger/logger.service';
-import { CommandRegistry } from '../interaction/handlers/commands/command.registry';
+import { CommandRegistry } from '../discord-event/handlers/interaction/slash/slash.command.registry';
 
 @Injectable()
 export class DeployCommandsService implements OnApplicationBootstrap {

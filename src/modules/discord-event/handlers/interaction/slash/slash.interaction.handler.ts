@@ -1,12 +1,12 @@
 import { Injectable, OnModuleInit } from '@nestjs/common';
 import { Collection, CommandInteraction } from 'discord.js';
-import { Command } from './interfaces/command.interface';
+import { SlashCommand } from './interfaces/slash.command.interface';
 
-import { DiscordEventLogger } from '../../../../common/logger/discord.event.logger';
-import { CommandRegistry } from './command.registry';
+import { DiscordEventLogger } from '../../../../../common/logger/discord.event.logger';
+import { CommandRegistry } from './slash.command.registry';
 @Injectable()
-export class CommandHandler implements OnModuleInit {
-  private commands = new Collection<string, Command>();
+export class SlashCommandHandler implements OnModuleInit {
+  private commands = new Collection<string, SlashCommand>();
   constructor(private readonly discordLogger: DiscordEventLogger, private readonly commandRegistry: CommandRegistry) {}
 
   async onModuleInit() {
