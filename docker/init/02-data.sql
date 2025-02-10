@@ -22,28 +22,27 @@ VALUES
    ARRAY['B-Tree', '인덱스', 'DB']
  ),
  (
-   '프로세스란?', 
-   '운영체제에서 프로세스의 개념과 특징을 설명하시오.', 
-   '{
-     "keywords": [
-       {
-         "requiredKeyword": "실행단위",
-         "acceptableKeywords": ["실행 단위", "실행", "프로세스 단위"]
-       },
-       {
-         "requiredKeyword": "자원할당",
-         "acceptableKeywords": ["자원 할당", "리소스 할당", "할당"]
-       }
-     ],
-     "requiredCount": 2,
-     "exampleAnswer": "프로세스는 운영체제에서 실행단위이며, 자원할당의 기본 단위입니다."
-   }',
-   '프로세스는 실행 중인 프로그램으로, 운영체제로부터 자원을 할당받는 기본 단위입니다.',
-   'keyword',
-   'medium',
-   'operating_system',
-   ARRAY['프로세스', '운영체제', '실행']
- ),
+  '프로세스란?', 
+  '운영체제에서 프로세스는 [        ]이며, [        ]의 기본 단위입니다.', 
+  '{
+    "blanks": [
+      {
+        "correctAnswer": "실행단위",
+        "acceptableKeywords": ["실행 단위", "실행", "프로세스 단위"]
+      },
+      {
+        "correctAnswer": "자원할당",
+        "acceptableKeywords": ["자원 할당", "리소스 할당", "할당"]
+      }
+    ],
+    "exampleAnswer": "프로세스는 운영체제에서 실행단위이며, 자원할당의 기본 단위입니다."
+  }',
+  '프로세스는 실행 중인 프로그램으로, 운영체제로부터 자원을 할당받는 기본 단위입니다.',
+  'blank',
+  'medium',
+  'operating_system',
+  ARRAY['프로세스', '운영체제', '실행']
+),
  (
    'TCP vs UDP', 
    'TCP와 UDP의 주요 차이점을 설명하시오.',
@@ -61,6 +60,7 @@ VALUES
  (
    '정규화 단계', 
    '데이터베이스 정규화의 단계별 정의를 순서대로 작성하시오:
+
     1. [    ] : 원자값으로 분해
     2. [    ] : 부분적 함수 종속 제거
     3. [    ] : 이행적 함수 종속 제거
@@ -118,59 +118,58 @@ VALUES
    'data_structure',
    ARRAY['트리', '순회', '노드']
  ),
- (
-   '시간복잡도 계산', 
-   '다음 코드의 시간복잡도를 빅오 표기법으로 나타내시오.
-    ```python
-    for i in range(n):
-        print(i)
-    ```',
-   '{
-     "keywords": [
-       {
-         "requiredKeyword": "O(n)",
-         "acceptableKeywords": ["linear", "선형", "O(N)"]
-       }
-     ],
-     "requiredCount": 1,
-     "exampleAnswer": "주어진 코드의 시간복잡도는 O(n)입니다. 입력 크기 n에 비례하여 실행 시간이 증가하는 선형 시간복잡도를 가집니다."
-   }',
-   '시간복잡도는 알고리즘의 효율성을 나타내는 중요한 지표입니다.',
-   'keyword',
-   'medium',
-   'algorithm',
-   ARRAY['복잡도', '효율성', '알고리즘']
- ),
- (
-   'CPU 구성요소', 
-   'CPU의 주요 구성요소들을 설명하시오.',
-   '{
-     "keywords": [
-       {
-         "requiredKeyword": "ALU",
-         "acceptableKeywords": ["산술논리장치", "연산장치"]
-       },
-       {
-         "requiredKeyword": "제어장치",
-         "acceptableKeywords": ["Control Unit", "CU"]
-       },
-       {
-         "requiredKeyword": "레지스터",
-         "acceptableKeywords": ["Register", "임시기억장치"]
-       }
-     ],
-     "requiredCount": 3,
-     "exampleAnswer": "CPU는 연산을 담당하는 ALU, 명령어를 해석하고 제어하는 제어장치, 데이터를 임시 저장하는 레지스터로 구성됩니다."
-   }',
-   'CPU는 컴퓨터 시스템의 핵심 부품입니다.',
-   'keyword',
-   'medium',
-   'computer_architecture',
-   ARRAY['CPU', '구성', '하드웨어']
- ),
+(
+  '시간복잡도 계산', 
+  '다음 코드의 시간복잡도를 빅오 표기법으로 나타내고 설명하시오.
+   ```python
+   for i in range(n):
+       print(i)
+   ```',
+  '{
+    "exampleAnswer": "주어진 코드의 시간복잡도는 O(n)입니다. 입력 크기 n에 비례하여 실행 시간이 증가하는 선형 시간복잡도를 가집니다.",
+    "keyPoints": ["O(n) 표기", "선형 시간복잡도", "n에 비례하는 실행시간"],
+    "similarityThreshold": 0.7
+  }',
+  '시간복잡도는 알고리즘의 효율성을 나타내는 중요한 지표입니다.',
+  'descriptive',
+  'medium',
+  'algorithm',
+  ARRAY['복잡도', '효율성', '알고리즘']
+),
+(
+  'CPU 구성요소', 
+  'CPU의 주요 구성요소 3가지:
+
+   1. [      ] : 연산을 담당하는 장치
+   2. [      ] : 명령어를 해석하고 제어하는 장치
+   3. [      ] : 데이터를 임시 저장하는 장치',
+  '{
+    "blanks": [
+      {
+        "correctAnswer": "ALU",
+        "acceptableKeywords": ["산술논리장치", "연산장치"]
+      },
+      {
+        "correctAnswer": "제어장치",
+        "acceptableKeywords": ["Control Unit", "CU"]
+      },
+      {
+        "correctAnswer": "레지스터",
+        "acceptableKeywords": ["Register", "임시기억장치"]
+      }
+    ],
+    "exampleAnswer": "CPU는 연산을 담당하는 ALU, 명령어를 해석하고 제어하는 제어장치, 데이터를 임시 저장하는 레지스터로 구성됩니다."
+  }',
+  'CPU는 컴퓨터 시스템의 핵심 부품입니다.',
+  'blank',
+  'medium',
+  'computer_architecture',
+  ARRAY['CPU', '구성', '하드웨어']
+),
  (
    '교착상태 조건', 
    '교착상태가 발생하기 위한 4가지 필요조건은 다음과 같다:
+   
     1. [    ] : 한 번에 한 프로세스만 자원 사용
     2. [    ] : 자원을 가진 상태에서 다른 자원 요청
     3. [    ] : 강제로 자원을 빼앗을 수 없음
@@ -204,7 +203,8 @@ VALUES
  ),
  (
    'TCP/IP 모델의 계층', 
-   'TCP/IP 모델의 4개 계층을 위에서 아래로 순서대로 쓰시오:
+   'TCP/IP 모델의 4개 계층을 위에서 아래로 순서대로 쓰시오: 
+
     1. [          ]
     2. [          ]
     3. [          ]
@@ -238,7 +238,8 @@ VALUES
  ),
  (
    '트랜잭션 특성', 
-   'ACID로 알려진 트랜잭션의 4가지 특성:
+   'ACID로 알려진 트랜잭션의 4가지 특성: 
+
     1. [    ] (Atomicity)
     2. [    ] (Consistency)
     3. [    ] (Isolation)
@@ -293,28 +294,33 @@ VALUES
 -- 사용자 문제 풀이 기록
 INSERT INTO user_problem_history (user_id, problem_id, user_answer, answer_details, is_correct) 
 VALUES 
- (
-   1, 
-   7, 
-   '{"keywords": ["ALU", "레지스터"]}',
-   '{
-     "matchedKeywords": [
-       {
-         "requiredKeyword": "ALU",
-         "matchedWith": "ALU"
-       },
-       {
-         "requiredKeyword": "레지스터",
-         "matchedWith": "레지스터"
-       }
-     ],
-     "missedKeywords": ["제어장치"],
-     "matchCount": 2,
-     "requiredCount": 3,
-     "scorePercentage": 66.7
-   }',
-   false
- ),
+(
+  1, 
+  7, 
+  '{"blanks": ["ALU", "제어기", "레지스터"]}',
+  '{
+    "results": [
+      {
+        "blankIndex": 0,
+        "userInput": "ALU",
+        "isCorrect": true
+      },
+      {
+        "blankIndex": 1,
+        "userInput": "제어기",
+        "isCorrect": false,
+        "matchedAcceptableKeywords": "제어장치"
+      },
+      {
+        "blankIndex": 2,
+        "userInput": "레지스터",
+        "isCorrect": true
+      }
+    ],
+    "allCorrect": false
+  }',
+  false
+),
 
  -- 이영희 - 트랜잭션 특성 (전부 정답)
  (
@@ -406,28 +412,22 @@ VALUES
  ),
 
  --  이영희 - 시간복잡도 (전체 정답)
- (
-   2, 
-   6, 
-   '{"keywords": ["O(n)", "선형"]}',
-   '{
-     "matchedKeywords": [
-       {
-         "requiredKeyword": "O(n)",
-         "matchedWith": "O(n)"
-       },
-       {
-         "requiredKeyword": "선형",
-         "matchedWith": "선형"
-       }
-     ],
-     "missedKeywords": [],
-     "matchCount": 2,
-     "requiredCount": 2,
-     "scorePercentage": 100
-   }',
-   true
- ),
+(
+  2, 
+  6, 
+  '{"text": "주어진 코드의 시간복잡도는 O(n)입니다. n번 반복하는 단순 반복문이므로 입력 크기 n에 비례하여 실행 시간이 증가하는 선형 시간복잡도를 가집니다."}',
+  '{
+    "similarityScore": 0.85,
+    "matchedKeyPoints": [
+      "O(n) 표기",
+      "선형 시간복잡도",
+      "n에 비례하는 실행시간"
+    ],
+    "missedKeyPoints": [],
+    "feedback": "정확한 시간복잡도를 파악하고 그 이유를 잘 설명했습니다."
+  }',
+  true
+),
 
  --  박지민 - 이진트리 순회 (높은 점수)
  (

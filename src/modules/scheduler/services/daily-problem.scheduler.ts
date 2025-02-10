@@ -6,7 +6,7 @@ import { DiscordGateway } from '@src/modules/discord/discord.gateway';
 import { ChannelService } from '@src/modules/domain/channel/channel.service';
 
 import { ProblemService } from '@src/modules/domain/problem/problem.service';
-import { createProblemEmbed } from '../utils/message.util';
+import { createProblemMessage } from '../utils/problem.message.util';
 import { Channel } from '@src/database/entities/channel.entity';
 import { ChannelType } from '@src/database/types';
 import { LoggerService } from '@src/common/logger/logger.service';
@@ -33,8 +33,8 @@ export class DailyProblemScheduler {
       const problem = await this.problemService.getTodayProblem();
 
       const channels = await this.channelService.getChannelsByType(ChannelType.CS);
-
       const results = await this.sendProblemToChannels(problem, channels);
+
       this.logResults(results);
     } catch (error) {
       this.logger.error('Daily problem scheduling failed', error as Error);
@@ -43,7 +43,7 @@ export class DailyProblemScheduler {
   }
 
   private async sendProblemToChannels(problem: Problem, channels: Channel[]): Promise<SendResult[]> {
-    const embed = createProblemEmbed({
+    const message = createProblemMessage({
       problem,
       timestamp: new Date(),
     });
@@ -51,7 +51,7 @@ export class DailyProblemScheduler {
     return Promise.all(
       channels.map(async (channel): Promise<SendResult> => {
         try {
-          await this.discordGateway.sendEmbed(channel.channelId, embed);
+          await this.discordGateway.sendMessageWithComponents(channel.channelId, message);
           return {
             channelId: channel.channelId,
             problemId: problem.id,

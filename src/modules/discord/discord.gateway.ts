@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { Client, TextChannel, EmbedBuilder } from 'discord.js';
+import { Client, TextChannel, EmbedBuilder, ActionRowBuilder, ButtonBuilder } from 'discord.js';
 import { LoggerService } from '../../common/logger/logger.service';
 
 @Injectable()
@@ -38,5 +38,20 @@ export class DiscordGateway {
     }
 
     return channel;
+  }
+
+  async sendMessageWithComponents(
+    channelId: string,
+    options: { embeds: EmbedBuilder[]; components: ActionRowBuilder<ButtonBuilder>[] }
+  ): Promise<void> {
+    try {
+      const channel = await this.getChannel(channelId);
+      await channel.send(options);
+    } catch (error) {
+      this.logger.error('Failed to send message with components', error as Error, {
+        channelId,
+      });
+      throw new Error('Failed to send message with components');
+    }
   }
 }

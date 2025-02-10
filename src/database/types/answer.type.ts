@@ -1,12 +1,3 @@
-interface KeywordAnswer {
-  keywords: {
-    requiredKeyword: string;
-    acceptableKeywords?: string[];
-  }[];
-  requiredCount: number;
-  exampleAnswer: string;
-}
-
 interface BlankAnswer {
   blanks: {
     correctAnswer: string;
@@ -21,4 +12,4 @@ interface DescriptiveAnswer {
   similarityThreshold: number;
 }
 
-export type ProblemAnswer = KeywordAnswer | BlankAnswer | DescriptiveAnswer;
+export type ProblemAnswer = BlankAnswer | DescriptiveAnswer;

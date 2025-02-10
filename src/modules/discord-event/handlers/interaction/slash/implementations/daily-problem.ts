@@ -1,6 +1,6 @@
 import { SlashCommandBuilder, ChatInputCommandInteraction } from 'discord.js';
 import { Injectable } from '@nestjs/common';
-import { ProblemService } from '../../../../domain/problem/problem.service';
+import { ProblemService } from '../../../../../domain/problem/problem.service';
 import { LoggerService } from '@src/common/logger/logger.service';
 import { EmbedBuilder } from 'discord.js';
 
