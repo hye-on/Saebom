@@ -4,6 +4,7 @@ import { ConfigService } from '@nestjs/config';
 
 import { LoggerService } from '../../common/logger/logger.service';
 import { CommandRegistry } from '../discord-event/handlers/interaction/slash/slash.command.registry';
+import { CatchError } from '@src/common/decorators/catch-errors.decorator';
 
 @Injectable()
 export class DeployCommandsService implements OnApplicationBootstrap {
@@ -31,27 +32,20 @@ export class DeployCommandsService implements OnApplicationBootstrap {
     this.logger.log('DeployCommandsService: Initializing and deploying commands...');
     await this.deployCommands();
   }
-
+  @CatchError({ rethrow: true })
   async deployCommands(): Promise<void> {
-    try {
-      const commands = Array.from(this.commandRegistry.getCommands().values()).map(command => command.data.toJSON());
+    const commands = Array.from(this.commandRegistry.getCommands().values()).map(command => command.data.toJSON());
 
-      this.logger.log('Started refreshing application commands', {
-        commandCount: commands.length,
-      });
+    this.logger.log('Started refreshing application commands', {
+      commandCount: commands.length,
+    });
 
-      const data = await this.rest.put(Routes.applicationGuildCommands(this.clientId, this.guildId), {
-        body: commands,
-      });
+    const data = await this.rest.put(Routes.applicationGuildCommands(this.clientId, this.guildId), {
+      body: commands,
+    });
 
-      this.logger.log('Successfully reloaded application commands', {
-        reloadedCount: Array.isArray(data) ? data.length : 0,
-      });
-    } catch (error) {
-      this.logger.error('Error reloading commands', error instanceof Error ? error : new Error('Unknown error'), {
-        clientId: this.clientId,
-        guildId: this.guildId,
-      });
-    }
+    this.logger.log('Successfully reloaded application commands', {
+      reloadedCount: Array.isArray(data) ? data.length : 0,
+    });
   }
 }

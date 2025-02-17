@@ -1,8 +1,9 @@
-import { Module } from '@nestjs/common';
+import { Global, Module } from '@nestjs/common';
 import { LoggerModule } from 'nestjs-pino';
 import { DiscordEventLogger } from './discord.event.logger';
 import { LoggerService } from './logger.service';
 
+@Global()
 @Module({
   imports: [
     LoggerModule.forRoot({

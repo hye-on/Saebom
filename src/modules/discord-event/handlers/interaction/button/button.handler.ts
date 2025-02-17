@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { ButtonInteraction } from 'discord.js';
 import { ButtonCommand } from './interfaces/button.command.interface';
 import { DailyProblemAnswer } from './implementations/daily-problem.answer';
+import { CatchError } from '@src/common/decorators/catch-errors.decorator';
 
 @Injectable()
 export class ButtonHandler {
@@ -16,6 +17,7 @@ export class ButtonHandler {
     this.buttons.set(this.answerButton.customId, this.answerButton);
   }
 
+  @CatchError({ reply: true })
   async handleButtonInteraction(interaction: ButtonInteraction): Promise<void> {
     const button = this.buttons.get(interaction.customId);
 

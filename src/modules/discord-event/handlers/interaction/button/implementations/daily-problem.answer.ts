@@ -11,15 +11,7 @@ export class DailyProblemAnswer implements ButtonCommand {
 
   constructor(private readonly logger: LoggerService) {}
   async execute(interaction: ButtonInteraction): Promise<void> {
-    try {
-      await this.showAnswerModal(interaction);
-    } catch (error) {
-      this.logger.error('Failed to handle answer button', error as Error);
-      await interaction.reply({
-        content: 'There was an error processing your answer!',
-        ephemeral: true,
-      });
-    }
+    await this.showAnswerModal(interaction);
   }
 
   private async showAnswerModal(interaction: ButtonInteraction) {
