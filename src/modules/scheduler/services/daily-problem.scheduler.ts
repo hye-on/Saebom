@@ -10,6 +10,7 @@ import { createProblemMessage } from '../utils/problem.message.util';
 import { Channel } from '@src/database/entities/channel.entity';
 import { ChannelType } from '@src/database/types';
 import { LoggerService } from '@src/common/logger/logger.service';
+import { CatchError } from '@src/common/decorators/catch-errors.decorator';
 
 type SendResult = {
   channelId: string;
@@ -27,19 +28,15 @@ export class DailyProblemScheduler {
     private readonly logger: LoggerService
   ) {}
 
+  @CatchError({ reply: true })
   @Cron(CronExpression.EVERY_DAY_AT_11AM)
   async sendDailyProblem(): Promise<void> {
-    try {
-      const problem = await this.problemService.getTodayProblem();
+    const problem = await this.problemService.getTodayProblem();
 
-      const channels = await this.channelService.getChannelsByType(ChannelType.CS);
-      const results = await this.sendProblemToChannels(problem, channels);
+    const channels = await this.channelService.getChannelsByType(ChannelType.CS);
+    const results = await this.sendProblemToChannels(problem, channels);
 
-      this.logResults(results);
-    } catch (error) {
-      this.logger.error('Daily problem scheduling failed', error as Error);
-      throw error;
-    }
+    this.logResults(results);
   }
 
   private async sendProblemToChannels(problem: Problem, channels: Channel[]): Promise<SendResult[]> {
@@ -50,21 +47,12 @@ export class DailyProblemScheduler {
 
     return Promise.all(
       channels.map(async (channel): Promise<SendResult> => {
-        try {
-          await this.discordGateway.sendMessageWithComponents(channel.channelId, message);
-          return {
-            channelId: channel.channelId,
-            problemId: problem.id,
-            success: true,
-          };
-        } catch (error) {
-          return {
-            channelId: channel.channelId,
-            problemId: problem.id,
-            success: false,
-            error: error as Error,
-          };
-        }
+        await this.discordGateway.sendMessageWithComponents(channel.channelId, message);
+        return {
+          channelId: channel.channelId,
+          problemId: problem.id,
+          success: true,
+        };
       })
     );
   }

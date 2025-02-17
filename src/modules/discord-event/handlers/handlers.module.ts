@@ -1,6 +1,5 @@
 import { Module } from '@nestjs/common';
 import { SlashCommandHandler } from './interaction/slash/slash.interaction.handler';
-import { AppLoggerModule } from '../../../common/logger/logger.module';
 import { ProblemCommand } from './interaction/slash/implementations/daily-problem';
 import { ProblemModule } from '../../domain/problem/problem.module';
 import { GuildHandler } from './guild/guild.handler';
@@ -10,7 +9,7 @@ import { ButtonHandler } from './interaction/button/button.handler';
 import { DailyProblemAnswer } from './interaction/button/implementations/daily-problem.answer';
 
 @Module({
-  imports: [AppLoggerModule, ProblemModule, ChannelModule],
+  imports: [ProblemModule, ChannelModule],
   providers: [SlashCommandHandler, GuildHandler, ButtonHandler, ProblemCommand, DailyProblemAnswer, CommandRegistry],
   exports: [SlashCommandHandler, GuildHandler, ButtonHandler],
 })

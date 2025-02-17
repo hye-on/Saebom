@@ -4,6 +4,7 @@ import { SlashCommand } from './interfaces/slash.command.interface';
 
 import { DiscordEventLogger } from '../../../../../common/logger/discord.event.logger';
 import { CommandRegistry } from './slash.command.registry';
+import { CatchError } from '@src/common/decorators/catch-errors.decorator';
 @Injectable()
 export class SlashCommandHandler implements OnModuleInit {
   private commands = new Collection<string, SlashCommand>();
@@ -12,6 +13,7 @@ export class SlashCommandHandler implements OnModuleInit {
   async onModuleInit() {
     this.commands = this.commandRegistry.getCommands();
   }
+  @CatchError()
   async handleCommand(interaction: CommandInteraction) {
     const command = this.commands.get(interaction.commandName);
 
@@ -20,17 +22,9 @@ export class SlashCommandHandler implements OnModuleInit {
       return;
     }
 
-    try {
-      if (interaction.isChatInputCommand()) {
-        await command.execute(interaction);
-        this.discordLogger.logCommand(interaction);
-      }
-    } catch (error) {
-      this.discordLogger.logCommandError(interaction, error instanceof Error ? error : new Error('Unknown error'));
-      await interaction.reply({
-        content: 'There was an error executing this command!',
-        ephemeral: true,
-      });
+    if (interaction.isChatInputCommand()) {
+      await command.execute(interaction);
+      this.discordLogger.logCommand(interaction);
     }
   }
 }

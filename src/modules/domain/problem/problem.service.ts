@@ -3,6 +3,8 @@ import { Problem } from '@src/database/entities';
 import { ProblemRepository } from './problem.repository';
 import { LoggerService } from '@src/common/logger/logger.service';
 import * as crypto from 'crypto';
+import { AppException } from '@src/common/errors/exceptions/app.exception';
+import { ErrorMessage } from '@src/common/errors/constants/error-messages';
 
 @Injectable()
 export class ProblemService {
@@ -10,10 +12,9 @@ export class ProblemService {
 
   private async calculateTodayProblemIndex(): Promise<number> {
     const totalProblems = await this.problemRepository.getProblemCount();
+
     if (totalProblems === 0) {
-      const error = new Error('No problems found in database');
-      this.logger.error('Failed to calculate problem index', error);
-      throw error;
+      throw new AppException(ErrorMessage.NotFound.PROBLEM);
     }
 
     const today = new Date().toISOString().split('T')[0];
@@ -28,15 +29,8 @@ export class ProblemService {
     const problem = await this.problemRepository.findProblemByIndex(index);
 
     if (!problem) {
-      const error = new Error(`Problem not found for index: ${index}`);
-      this.logger.error('Failed to get problem', error, { index });
-      throw error;
+      throw new AppException(ErrorMessage.NotFound.PROBLEM);
     }
-
-    this.logger.log("Successfully retrieved today's problem", {
-      problemId: problem.id,
-      category: problem.category,
-    });
 
     return problem;
   }
