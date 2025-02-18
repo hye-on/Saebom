@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { Cron, CronExpression } from '@nestjs/schedule';
 
 import { Problem } from '@src/database/entities';
-import { DiscordGateway } from '@src/modules/discord/discord.gateway';
+import { DiscordGateway } from '@src/modules/discord/services/gateway/discord.gateway';
 import { ChannelService } from '@src/modules/domain/channel/channel.service';
 
 import { ProblemService } from '@src/modules/domain/problem/problem.service';

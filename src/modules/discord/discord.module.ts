@@ -1,16 +1,15 @@
 import { Module } from '@nestjs/common';
-import { DiscordService } from './discord.init.service';
-import { ListenersModule } from '../discord-event/listeners/listeners.modules';
-import { HandlerModule } from '../discord-event/handlers/handlers.module';
 import { AppLoggerModule } from '../../common/logger/logger.module';
-import { DiscordGateway } from './discord.gateway';
 import { ConfigService } from '@nestjs/config';
 import { Client, GatewayIntentBits } from 'discord.js';
-import { DeployCommandsService } from './deploy-commands.service';
-import { CommandRegistry } from '../discord-event/handlers/interaction/slash/slash.command.registry';
+import { DeployCommandsService } from './services/client/deploy-commands.service';
+import { DiscordService } from './services/client/discord.service';
+import { DiscordGateway } from './services/gateway/discord.gateway';
+import { InteractionsModule } from './interactions/interactions.module';
+import { EventsModule } from './events/event.module';
 
 @Module({
-  imports: [ListenersModule, HandlerModule, AppLoggerModule],
+  imports: [AppLoggerModule, InteractionsModule, EventsModule],
   providers: [
     {
       provide: Client,
@@ -29,7 +28,6 @@ import { CommandRegistry } from '../discord-event/handlers/interaction/slash/sla
     DeployCommandsService,
     DiscordService,
     DiscordGateway,
-    CommandRegistry,
   ],
   exports: [DiscordService, DiscordGateway],
 })

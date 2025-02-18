@@ -3,10 +3,8 @@ import { ConfigModule } from '@nestjs/config';
 import { LoggerModule } from 'nestjs-pino';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { HandlerModule } from './modules/discord-event/handlers/handlers.module';
 import { AppLoggerModule } from './common/logger/logger.module';
 import { DiscordModule } from './modules/discord/discord.module';
-import { ListenersModule } from './modules/discord-event/listeners/listeners.modules';
 import { DatabaseModule } from './database/database.module';
 import { ProblemModule } from './modules/domain/problem/problem.module';
 import { ChannelModule } from './modules/domain/channel/channel.module';
@@ -27,8 +25,6 @@ import { ScheduleModule } from '@nestjs/schedule';
     }),
     AppLoggerModule,
     DiscordModule,
-    HandlerModule,
-    ListenersModule,
     DatabaseModule,
     ProblemModule,
     ChannelModule,
