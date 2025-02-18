@@ -1,4 +1,5 @@
-import { CommandInteraction, DiscordAPIError, RateLimitError } from 'discord.js';
+import 'reflect-metadata';
+import { DiscordAPIError, RateLimitError } from 'discord.js';
 import { AppException } from '../errors/exceptions/app.exception';
 
 interface ErrorHandlerOptions {
@@ -14,36 +15,40 @@ export function CatchError(options: ErrorHandlerOptions = {}) {
   return function (target: any, propertyKey: string, descriptor: PropertyDescriptor) {
     const originalMethod = descriptor.value;
 
-    descriptor.value = async function (...args: any[]) {
+    const wrappedMethod = async function (this: any, ...args: any[]) {
       try {
         return await originalMethod.apply(this, args);
       } catch (error) {
         await handleError(error, args[0], options);
+        if (options.rethrow) {
+          throw error;
+        }
       }
     };
 
+    const metadataKeys = Reflect.getMetadataKeys(originalMethod);
+    for (const key of metadataKeys) {
+      const metadata = Reflect.getMetadata(key, originalMethod);
+      Reflect.defineMetadata(key, metadata, wrappedMethod);
+    }
+
+    descriptor.value = wrappedMethod;
     return descriptor;
   };
 }
 
-async function handleError(
-  error: unknown,
-  interaction: CommandInteraction,
-  options: ErrorHandlerOptions
-): Promise<void> {
-  if (options.reply) {
-    await sendErrorMessage(error, interaction);
-  }
-
-  if (options.rethrow) {
-    throw error;
+async function handleError(error: unknown, context: any, options: ErrorHandlerOptions): Promise<void> {
+  if (options.reply && context && typeof context.reply === 'function') {
+    await sendErrorMessage(error, context);
+  } else {
+    console.error('Error:', error);
   }
 }
 
-async function sendErrorMessage(error: unknown, interaction: CommandInteraction): Promise<void> {
+async function sendErrorMessage(error: unknown, context: any): Promise<void> {
   try {
     const errorMessage = getErrorMessage(error);
-    await sendInteractionResponse(interaction, errorMessage);
+    await sendInteractionResponse(context, errorMessage);
   } catch (replyError) {
     console.error('Error while sending error message', replyError);
   }
@@ -62,12 +67,12 @@ function getErrorMessage(error: unknown): string {
   return DEFAULT_ERROR_MESSAGE;
 }
 
-async function sendInteractionResponse(interaction: CommandInteraction, content: string): Promise<void> {
+async function sendInteractionResponse(context: any, content: string): Promise<void> {
   const response = { content, ephemeral: true };
 
-  if (!interaction.deferred && !interaction.replied) {
-    await interaction.reply(response);
+  if (!context.deferred && !context.replied) {
+    await context.reply(response);
   } else {
-    await interaction.followUp(response);
+    await context.followUp(response);
   }
 }
