@@ -34,7 +34,7 @@ export class DailyProblemScheduler {
   ) {}
 
   @CatchError({ reply: true })
-  @Cron(CronExpression.EVERY_MINUTE)
+  @Cron(CronExpression.EVERY_DAY_AT_11AM)
   async sendDailyProblem(): Promise<void> {
     const problem = await this.problemService.getTodayProblem();
 
