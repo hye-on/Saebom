@@ -7,6 +7,7 @@ import { DiscordService } from './services/client/discord.service';
 import { DiscordGateway } from './services/gateway/discord.gateway';
 import { InteractionsModule } from './interactions/interactions.module';
 import { EventsModule } from './events/event.module';
+import { MessageBatchSenderService } from './services/batch-sender/message-batch-sender.service';
 
 @Module({
   imports: [AppLoggerModule, InteractionsModule, EventsModule],
@@ -28,7 +29,8 @@ import { EventsModule } from './events/event.module';
     DeployCommandsService,
     DiscordService,
     DiscordGateway,
+    MessageBatchSenderService,
   ],
-  exports: [DiscordService, DiscordGateway],
+  exports: [DiscordService, DiscordGateway, MessageBatchSenderService],
 })
 export class DiscordModule {}

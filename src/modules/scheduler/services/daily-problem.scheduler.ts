@@ -11,6 +11,10 @@ import { Channel } from '@src/database/entities/channel.entity';
 import { ChannelType } from '@src/database/types';
 import { LoggerService } from '@src/common/logger/logger.service';
 import { CatchError } from '@src/common/decorators/catch-errors.decorator';
+import {
+  ChannelMessage,
+  MessageBatchSenderService,
+} from '@src/modules/discord/services/batch-sender/message-batch-sender.service';
 
 type SendResult = {
   channelId: string;
@@ -25,7 +29,8 @@ export class DailyProblemScheduler {
     private readonly problemService: ProblemService,
     private readonly discordGateway: DiscordGateway,
     private readonly channelService: ChannelService,
-    private readonly logger: LoggerService
+    private readonly logger: LoggerService,
+    private readonly batchSender: MessageBatchSenderService
   ) {}
 
   @CatchError({ reply: true })
@@ -40,21 +45,24 @@ export class DailyProblemScheduler {
   }
 
   private async sendProblemToChannels(problem: Problem, channels: Channel[]): Promise<SendResult[]> {
-    const message = createProblemMessage({
+    const messagePayload = createProblemMessage({
       problem,
       timestamp: new Date(),
     });
 
-    return Promise.all(
-      channels.map(async (channel): Promise<SendResult> => {
-        await this.discordGateway.sendMessageWithComponents(channel.channelId, message);
-        return {
-          channelId: channel.channelId,
-          problemId: problem.id,
-          success: true,
-        };
-      })
-    );
+    const channelMessages: ChannelMessage[] = channels.map(channel => ({
+      channelId: channel.channelId,
+      message: messagePayload,
+    }));
+
+    const batchResults = await this.batchSender.sendToChannels(channelMessages);
+
+    return batchResults.map(result => ({
+      channelId: result.channelId,
+      problemId: problem.id,
+      success: result.success,
+      error: result.error,
+    }));
   }
 
   private logResults(results: SendResult[]): void {
