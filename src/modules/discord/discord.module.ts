@@ -2,15 +2,19 @@ import { Module } from '@nestjs/common';
 import { AppLoggerModule } from '../../common/logger/logger.module';
 import { ConfigService } from '@nestjs/config';
 import { Client, GatewayIntentBits } from 'discord.js';
-import { DeployCommandsService } from './services/client/deploy-commands.service';
-import { DiscordService } from './services/client/discord.service';
-import { DiscordGateway } from './services/gateway/discord.gateway';
+import { DeployCommandsService } from './services/deploy-commands.service';
+
+import { DiscordGateway } from './services/discord.gateway';
 import { InteractionsModule } from './interactions/interactions.module';
 import { EventsModule } from './events/event.module';
-import { MessageBatchSenderService } from './services/batch-sender/message-batch-sender.service';
+import { MessageBatchSenderService } from './services/message-batch-sender.service';
+import { DiscordService } from './services/discord.service';
+import { DiscordMessageRepository } from '../domain/discord-message/discord-message.repository';
+import { MikroOrmModule } from '@mikro-orm/nestjs';
+import { DiscordMessage } from '@src/database/entities';
 
 @Module({
-  imports: [AppLoggerModule, InteractionsModule, EventsModule],
+  imports: [AppLoggerModule, InteractionsModule, EventsModule, MikroOrmModule.forFeature([DiscordMessage])],
   providers: [
     {
       provide: Client,
@@ -30,6 +34,7 @@ import { MessageBatchSenderService } from './services/batch-sender/message-batch
     DiscordService,
     DiscordGateway,
     MessageBatchSenderService,
+    DiscordMessageRepository,
   ],
   exports: [DiscordService, DiscordGateway, MessageBatchSenderService],
 })

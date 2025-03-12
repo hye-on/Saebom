@@ -5,4 +5,7 @@ export const ErrorMessage = {
   Invalid: {
     CHANNEL_TYPE: { code: 'INVALID_CHANNEL_TYPE', message: '잘못된 채널 타입입니다.' },
   },
+  Internal: {
+    SERVER_ERROR: { code: 'INTERNAL_SERVER_ERROR', message: '서버 내부 오류가 발생했습니다.' },
+  },
 } as const;
