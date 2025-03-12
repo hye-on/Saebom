@@ -2,8 +2,8 @@ import { REST, Routes } from 'discord.js';
 import { Injectable, OnApplicationBootstrap } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 
-import { LoggerService } from '../../../../common/logger/logger.service';
-import { InteractionDiscovery } from '../../interactions/core/discovery/interaction.discovery';
+import { LoggerService } from '../../../common/logger/logger.service';
+import { InteractionDiscovery } from '../interactions/core/discovery/interaction.discovery';
 import { CatchError } from '@src/common/decorators/catch-errors.decorator';
 
 @Injectable()
