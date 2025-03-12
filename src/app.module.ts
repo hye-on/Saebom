@@ -8,8 +8,11 @@ import { DiscordModule } from './modules/discord/discord.module';
 import { DatabaseModule } from './database/database.module';
 import { ProblemModule } from './modules/domain/problem/problem.module';
 import { ChannelModule } from './modules/domain/channel/channel.module';
-import { SchedulerModule } from './modules/scheduler/scheduler.module';
+import { SchedulerModule } from './modules/core/scheduler/scheduler.module';
 import { ScheduleModule } from '@nestjs/schedule';
+import { GradingModule } from './modules/core/grading/grading.module';
+import { SimilarityModule } from './modules/core/similarity/similarity.module';
+import { DiscordMessageModule } from './modules/domain/discord-message/discord-message.module';
 
 @Module({
   imports: [
@@ -30,6 +33,9 @@ import { ScheduleModule } from '@nestjs/schedule';
     ChannelModule,
     ScheduleModule.forRoot(),
     SchedulerModule,
+    GradingModule,
+    SimilarityModule,
+    DiscordMessageModule,
   ],
   controllers: [AppController],
   providers: [AppService],

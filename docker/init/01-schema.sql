@@ -46,6 +46,7 @@ CREATE TABLE users (
  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
  deleted_at TIMESTAMP
+ UNIQUE (discord_user_id, guild_id)
 );
 
 -- CS 문제 테이블 
@@ -156,8 +157,23 @@ CREATE TABLE motivation_messages (
  deleted_at TIMESTAMP
 );
 
+CREATE TABLE "discord_message" (
+  "id"                  SERIAL        PRIMARY KEY,
+  "channel_id"          VARCHAR(50)   NOT NULL,
+  "guild_id"            VARCHAR(50)   NOT NULL,
+  "discord_message_id"  VARCHAR(50)   NOT NULL,
+  "content"             JSONB         NOT NULL,
+  "metadata"            JSONB,
+  "created_at"          TIMESTAMP     NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  "updated_at"          TIMESTAMP     NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  "deleted_at"          TIMESTAMP,
+
+  UNIQUE ("discord_message_id")
+);
+
+
 -- 인덱스 생성
-CREATE INDEX idx_users_discord_id ON users(discord_user_id);
+CREATE INDEX idx_users_discord_guild ON users(discord_user_id, guild_id);
 CREATE INDEX idx_user_problem_history_user ON user_problem_history(user_id);
 CREATE INDEX idx_review_schedules_user_date ON review_schedules(user_id, review_date);
 CREATE INDEX idx_notifications_user_read ON notifications(user_id, is_read);

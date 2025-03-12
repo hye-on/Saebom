@@ -2,8 +2,8 @@ import { Injectable, OnModuleInit } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { Client, GatewayIntentBits } from 'discord.js';
 import { LoggerService } from '@src/common/logger/logger.service';
-import { EventListenerDiscovery } from '../../events/core/discovery/event-listener.discovery';
 import { CatchError } from '@src/common/decorators/catch-errors.decorator';
+import { EventListenerDiscovery } from '../events/core/discovery/event-listener.discovery';
 
 @Injectable()
 export class DiscordService implements OnModuleInit {

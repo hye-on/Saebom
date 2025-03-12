@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { Cron, CronExpression } from '@nestjs/schedule';
 
 import { Problem } from '@src/database/entities';
-import { DiscordGateway } from '@src/modules/discord/services/gateway/discord.gateway';
+import { DiscordGateway } from '@src/modules/discord/services/discord.gateway';
 import { ChannelService } from '@src/modules/domain/channel/channel.service';
 
 import { ProblemService } from '@src/modules/domain/problem/problem.service';
@@ -11,10 +11,9 @@ import { Channel } from '@src/database/entities/channel.entity';
 import { ChannelType } from '@src/database/types';
 import { LoggerService } from '@src/common/logger/logger.service';
 import { CatchError } from '@src/common/decorators/catch-errors.decorator';
-import {
-  ChannelMessage,
-  MessageBatchSenderService,
-} from '@src/modules/discord/services/batch-sender/message-batch-sender.service';
+import { MessageBatchSenderService } from '@src/modules/discord/services/message-batch-sender.service';
+import { DiscordMessageType } from '@src/modules/domain/discord-message/discord-message.type';
+import { ChannelMessage } from '@src/modules/discord/types/channel-message';
 
 type SendResult = {
   channelId: string;
@@ -53,6 +52,7 @@ export class DailyProblemScheduler {
     const channelMessages: ChannelMessage[] = channels.map(channel => ({
       channelId: channel.channelId,
       message: messagePayload,
+      metadata: { type: DiscordMessageType.PROBLEM, problemId: problem.id },
     }));
 
     const batchResults = await this.batchSender.sendToChannels(channelMessages);

@@ -1,16 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { LoggerService } from '@src/common/logger/logger.service';
-import { DiscordGateway } from '../gateway/discord.gateway';
-import { ActionRowBuilder, ButtonBuilder, EmbedBuilder } from 'discord.js';
+import { DiscordGateway } from './discord.gateway';
 import { CatchError } from '@src/common/decorators/catch-errors.decorator';
-
-export interface ChannelMessage {
-  channelId: string;
-  message: {
-    embeds: EmbedBuilder[];
-    components: ActionRowBuilder<ButtonBuilder>[];
-  };
-}
+import { ChannelMessage } from '../types/channel-message';
 
 @Injectable()
 export class MessageBatchSenderService {
@@ -39,12 +31,12 @@ export class MessageBatchSenderService {
       const chunk = chunks[i];
 
       const chunkResults = await Promise.all(
-        chunk.map(async ({ channelId, message }) => {
+        chunk.map(async channelMessage => {
           try {
-            await this.discordGateway.sendMessageWithComponents(channelId, message);
-            return { channelId, success: true };
+            await this.discordGateway.sendMessageWithComponents(channelMessage);
+            return { channelId: channelMessage.channelId, success: true };
           } catch (error) {
-            return { channelId, success: false, error };
+            return { channelId: channelMessage.channelId, success: false, error };
           }
         })
       );

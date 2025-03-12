@@ -1,7 +1,7 @@
 import { ActionRowBuilder, ButtonBuilder, ButtonStyle, EmbedBuilder } from 'discord.js';
 import { ProblemMessageOptions } from '../types/daily-problem-message.type';
 
-export const createProblemMessage = ({ problem, timestamp }: ProblemMessageOptions) => {
+export const createProblemMessage = ({ problem }: ProblemMessageOptions) => {
   const embed = new EmbedBuilder()
     .setTitle('📭 오늘의 CS 문제')
     .setDescription(problem.content)

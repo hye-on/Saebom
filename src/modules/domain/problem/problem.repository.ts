@@ -23,9 +23,17 @@ export class ProblemRepository {
       {
         offset: index,
         limit: 1,
+        orderBy: { id: 'ASC' },
       }
     );
 
     return problem;
+  }
+  async findById(id: number): Promise<Problem | null> {
+    const em = this.repository.getEntityManager().fork();
+
+    const numericId = typeof id === 'string' ? parseInt(id, 10) : id;
+
+    return await em.findOne(Problem, { id: numericId });
   }
 }

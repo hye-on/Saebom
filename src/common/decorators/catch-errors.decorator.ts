@@ -39,6 +39,7 @@ export function CatchError(options: ErrorHandlerOptions = {}) {
 
 async function handleError(error: unknown, context: any, options: ErrorHandlerOptions): Promise<void> {
   if (options.reply && context && typeof context.reply === 'function') {
+    console.error('Error:', error);
     await sendErrorMessage(error, context);
   } else {
     console.error('Error:', error);

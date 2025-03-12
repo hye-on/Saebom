@@ -1,12 +1,13 @@
-import { Entity, Property, PrimaryKey } from '@mikro-orm/core';
+import { Entity, Property, PrimaryKey, Unique } from '@mikro-orm/core';
 import { BaseEntity } from './base.entity';
 
 @Entity({ tableName: 'users' })
+@Unique({ properties: ['discordUserId', 'guildId'] })
 export class User extends BaseEntity {
   @PrimaryKey()
   id!: number;
 
-  @Property({ unique: true })
+  @Property()
   discordUserId!: string;
 
   @Property()
