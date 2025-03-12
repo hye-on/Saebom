@@ -1,16 +1,24 @@
 import { Injectable } from '@nestjs/common';
-import { CategoryChannel, Guild, TextChannel, ChannelType as DiscordChannelType } from 'discord.js';
+import { CategoryChannel, Guild, TextChannel, ChannelType as DiscordChannelType, GuildMember } from 'discord.js';
 import { LoggerService } from '@src/common/logger/logger.service';
 import { ChannelService } from '@src/modules/domain/channel/channel.service';
 import { CHANNELS } from '@src/modules/domain/channel/channel.constant';
 import { CatchError } from '@src/common/decorators/catch-errors.decorator';
 import { ChannelType } from '@src/database/types';
+import { UserService } from '@src/modules/domain/user/user.service';
 
+/**
+ * TODO: 핸들러에서 로직 분리
+ */
 @Injectable()
 export class GuildSetupHandler {
   private readonly CATEGORY_NAME = '🌿 새봄';
 
-  constructor(private readonly logger: LoggerService, private readonly channelService: ChannelService) {}
+  constructor(
+    private readonly logger: LoggerService,
+    private readonly channelService: ChannelService,
+    private readonly userService: UserService
+  ) {}
 
   /**
    * 길드 설정을 시작합니다.
@@ -22,6 +30,7 @@ export class GuildSetupHandler {
     const category = await this.createCategory(guild);
     const channels = await this.createChannels(guild, category);
     await this.saveChannelConfigs(guild.id, channels);
+    await this.registerUsers(guild);
     const welcomeChannel = channels.find((_, index) => CHANNELS[index].type === ChannelType.CHAT);
 
     await this.sendWelcomeMessage(welcomeChannel);
@@ -72,5 +81,25 @@ export class GuildSetupHandler {
         },
       ],
     });
+  }
+  private async registerUsers(guild: Guild): Promise<void> {
+    const members = await guild.members.fetch();
+    const userPromises = members
+      .filter(member => !member.user.bot) // 봇 계정 필터링
+      .map(member => this.registerUser(member));
+
+    await Promise.allSettled(userPromises);
+  }
+  private async registerUser(member: GuildMember): Promise<void> {
+    try {
+      await this.userService.registerUser({
+        discordUserId: member.id,
+        guildId: member.guild.id,
+        username: member.user.username,
+      });
+      this.logger.debug(`User registered: ${member.user.username} (${member.id})`);
+    } catch (error) {
+      this.logger.warn(`Failed to register user: ${member.user.username} (${member.id})`, error);
+    }
   }
 }
