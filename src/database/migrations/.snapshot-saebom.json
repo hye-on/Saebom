@@ -15,16 +15,6 @@
           "nullable": false,
           "mappedType": "integer"
         },
-        "created_at": {
-          "name": "created_at",
-          "type": "timestamptz",
-          "unsigned": false,
-          "autoincrement": false,
-          "primary": false,
-          "nullable": false,
-          "length": 6,
-          "mappedType": "datetime"
-        },
         "updated_at": {
           "name": "updated_at",
           "type": "timestamptz",
@@ -108,16 +98,6 @@
           "primary": true,
           "nullable": false,
           "mappedType": "integer"
-        },
-        "created_at": {
-          "name": "created_at",
-          "type": "timestamptz",
-          "unsigned": false,
-          "autoincrement": false,
-          "primary": false,
-          "nullable": false,
-          "length": 6,
-          "mappedType": "datetime"
         },
         "updated_at": {
           "name": "updated_at",
@@ -217,16 +197,6 @@
           "nullable": false,
           "mappedType": "integer"
         },
-        "created_at": {
-          "name": "created_at",
-          "type": "timestamptz",
-          "unsigned": false,
-          "autoincrement": false,
-          "primary": false,
-          "nullable": false,
-          "length": 6,
-          "mappedType": "datetime"
-        },
         "updated_at": {
           "name": "updated_at",
           "type": "timestamptz",
@@ -312,16 +282,6 @@
           "nullable": false,
           "mappedType": "integer"
         },
-        "created_at": {
-          "name": "created_at",
-          "type": "timestamptz",
-          "unsigned": false,
-          "autoincrement": false,
-          "primary": false,
-          "nullable": false,
-          "length": 6,
-          "mappedType": "datetime"
-        },
         "updated_at": {
           "name": "updated_at",
           "type": "timestamptz",
@@ -392,16 +352,6 @@
           "primary": true,
           "nullable": false,
           "mappedType": "integer"
-        },
-        "created_at": {
-          "name": "created_at",
-          "type": "timestamptz",
-          "unsigned": false,
-          "autoincrement": false,
-          "primary": false,
-          "nullable": false,
-          "length": 6,
-          "mappedType": "datetime"
         },
         "updated_at": {
           "name": "updated_at",
@@ -556,16 +506,6 @@
           "nullable": false,
           "mappedType": "integer"
         },
-        "created_at": {
-          "name": "created_at",
-          "type": "timestamptz",
-          "unsigned": false,
-          "autoincrement": false,
-          "primary": false,
-          "nullable": false,
-          "length": 6,
-          "mappedType": "datetime"
-        },
         "updated_at": {
           "name": "updated_at",
           "type": "timestamptz",
@@ -650,16 +590,6 @@
           "primary": true,
           "nullable": false,
           "mappedType": "integer"
-        },
-        "created_at": {
-          "name": "created_at",
-          "type": "timestamptz",
-          "unsigned": false,
-          "autoincrement": false,
-          "primary": false,
-          "nullable": false,
-          "length": 6,
-          "mappedType": "datetime"
         },
         "updated_at": {
           "name": "updated_at",
@@ -772,6 +702,26 @@
           "nullable": false,
           "mappedType": "integer"
         },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamptz",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 6,
+          "mappedType": "datetime"
+        },
+        "deleted_at": {
+          "name": "deleted_at",
+          "type": "timestamptz",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": true,
+          "length": 6,
+          "mappedType": "datetime"
+        },
         "user_id": {
           "name": "user_id",
           "type": "int",
@@ -802,13 +752,14 @@
         },
         "review_step": {
           "name": "review_step",
-          "type": "int",
+          "type": "varchar(255)",
           "unsigned": false,
           "autoincrement": false,
           "primary": false,
           "nullable": false,
-          "default": "1",
-          "mappedType": "integer"
+          "length": 255,
+          "default": "'FIRST_REPEAT'",
+          "mappedType": "string"
         },
         "is_completed": {
           "name": "is_completed",
@@ -874,16 +825,6 @@
           "primary": true,
           "nullable": false,
           "mappedType": "integer"
-        },
-        "created_at": {
-          "name": "created_at",
-          "type": "timestamptz",
-          "unsigned": false,
-          "autoincrement": false,
-          "primary": false,
-          "nullable": false,
-          "length": 6,
-          "mappedType": "datetime"
         },
         "updated_at": {
           "name": "updated_at",
@@ -990,16 +931,6 @@
           "primary": true,
           "nullable": false,
           "mappedType": "integer"
-        },
-        "created_at": {
-          "name": "created_at",
-          "type": "timestamptz",
-          "unsigned": false,
-          "autoincrement": false,
-          "primary": false,
-          "nullable": false,
-          "length": 6,
-          "mappedType": "datetime"
         },
         "updated_at": {
           "name": "updated_at",
@@ -1112,16 +1043,6 @@
           "primary": true,
           "nullable": false,
           "mappedType": "integer"
-        },
-        "created_at": {
-          "name": "created_at",
-          "type": "timestamptz",
-          "unsigned": false,
-          "autoincrement": false,
-          "primary": false,
-          "nullable": false,
-          "length": 6,
-          "mappedType": "datetime"
         },
         "updated_at": {
           "name": "updated_at",
