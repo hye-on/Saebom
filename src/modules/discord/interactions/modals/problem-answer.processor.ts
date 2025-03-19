@@ -9,6 +9,7 @@ import { DiscordMessageRepository } from '@src/modules/domain/discord-message/di
 import { DiscordMessageType } from '@src/modules/domain/discord-message/discord-message.type';
 import { UserRepository } from '@src/modules/domain/user/user.repository';
 import { CatchError } from '@src/common/decorators/catch-errors.decorator';
+import { ReviewService } from '@src/modules/domain/review/review.service';
 
 @Injectable()
 @Modal('answer_modal')
@@ -17,6 +18,7 @@ export class ProblemAnswerProcessor {
     private readonly logger: LoggerService,
     private readonly gradingService: GradingService,
     private readonly problemService: ProblemService,
+    private readonly reviewService: ReviewService,
     private readonly discordMessageRepository: DiscordMessageRepository,
     private readonly userRepository: UserRepository
   ) {}
@@ -45,7 +47,6 @@ export class ProblemAnswerProcessor {
     const result = await this.gradingService.grade(problemType, problem.answer, userAnswer);
 
     await this.sendGradingResponse(interaction, problemType, result, problem.answer, userAnswer);
-
     // 답변 이력 저장
     await this.problemService.saveUserAnswer({
       userId,
@@ -55,9 +56,7 @@ export class ProblemAnswerProcessor {
       isCorrect: this.isCorrect(result, problem),
       solvedAt: new Date(),
     });
-
-    this.logger.log(`사용자 ${interaction.user.id}가 문제 ${problemId}에 답변: ${JSON.stringify(userAnswer)}`);
-    this.logger.debug(`채점 결과: ${JSON.stringify(result)}`);
+    await this.reviewService.createReviewSchedule({ userId, problemId });
   }
 
   private extractUserAnswer(interaction: ModalSubmitInteraction, problemType: ProblemType): UserAnswer {
