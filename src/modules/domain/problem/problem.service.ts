@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { Problem } from '@src/database/entities';
+import { Problem, UserProblemHistory } from '@src/database/entities';
 import { ProblemRepository } from './problem.repository';
 import { LoggerService } from '@src/common/logger/logger.service';
 import * as crypto from 'crypto';
@@ -7,6 +7,7 @@ import { AppException } from '@src/common/errors/exceptions/app.exception';
 import { ErrorMessage } from '@src/common/errors/constants/error-messages';
 import { UserProblemHistoryRepository } from '../user/user-problem-history.repository';
 import { CatchError } from '@src/common/decorators/catch-errors.decorator';
+import { UserAnswerData } from './problem.types';
 
 @Injectable()
 export class ProblemService {
@@ -58,14 +59,7 @@ export class ProblemService {
   /**
    * 사용자 답변 이력을 저장
    */
-  async saveUserAnswer(answerHistory: {
-    userId: number;
-    problemId: number;
-    userAnswer: any;
-    result: any;
-    isCorrect: boolean;
-    solvedAt: Date;
-  }): Promise<any> {
+  async saveUserAnswer(answerHistory: UserAnswerData): Promise<UserProblemHistory> {
     const history = await this.userProblemHistoryRepository.create({
       userId: answerHistory.userId,
       problemId: answerHistory.problemId,
