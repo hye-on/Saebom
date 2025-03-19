@@ -39,7 +39,6 @@ export class ReviewScheduleRepository {
   }
 
   async create(data: CreateScheduleData): Promise<ReviewSchedule> {
-    console.log('여기' + data);
     const schedule = this.em.create(ReviewSchedule, {
       user: this.em.getReference(User, data.userId),
       problem: this.em.getReference(Problem, data.problemId),
@@ -47,7 +46,7 @@ export class ReviewScheduleRepository {
       reviewStep: data.reviewStep,
       isCompleted: false,
     });
-    console.log(schedule);
+
     await this.em.persistAndFlush(schedule);
     return schedule;
   }

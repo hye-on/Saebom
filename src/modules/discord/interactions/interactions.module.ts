@@ -12,9 +12,16 @@ import { UserRepository } from '@src/modules/domain/user/user.repository';
 import { DiscordMessageRepository } from '@src/modules/domain/discord-message/discord-message.repository';
 import { DiscordMessage, User } from '@src/database/entities';
 import { MikroOrmModule } from '@mikro-orm/nestjs';
+import { ReviewModule } from '@src/modules/domain/review/review.module';
 
 @Module({
-  imports: [DiscoveryModule, ProblemModule, GradingModule, MikroOrmModule.forFeature([DiscordMessage, User])],
+  imports: [
+    DiscoveryModule,
+    ProblemModule,
+    GradingModule,
+    ReviewModule,
+    MikroOrmModule.forFeature([DiscordMessage, User]),
+  ],
   providers: [
     InteractionDiscovery,
     ProblemCommand,
