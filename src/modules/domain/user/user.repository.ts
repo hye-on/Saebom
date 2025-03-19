@@ -31,4 +31,7 @@ export class UserRepository {
   async flush(): Promise<void> {
     await this.repository.getEntityManager().flush();
   }
+  async findAllActiveUsers(): Promise<User[]> {
+    return this.repository.find({ deletedAt: null });
+  }
 }
