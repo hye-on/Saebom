@@ -12,6 +12,8 @@ export default defineConfig({
   loadStrategy: LoadStrategy.JOINED,
   namingStrategy: UnderscoreNamingStrategy,
   allowGlobalContext: true,
+  timezone: 'Asia/Seoul',
+  forceUtcTimezone: false,
   migrations: {
     path: './src/database/migrations',
     pathTs: './src/database/migrations',

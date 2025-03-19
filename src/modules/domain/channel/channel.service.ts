@@ -4,6 +4,7 @@ import { Channel } from '@src/database/entities/channel.entity';
 import { EntityRepository } from '@mikro-orm/postgresql';
 import { InjectRepository } from '@mikro-orm/nestjs';
 import { ChannelType } from '@src/database/types';
+import { ChannelInfo } from './channel.types';
 
 @Injectable()
 export class ChannelService {
@@ -34,6 +35,21 @@ export class ChannelService {
 
     await em.persistAndFlush(config);
     return config;
+  }
+  async getReviewChannels(guildIds: string[]): Promise<ChannelInfo[]> {
+    if (guildIds.length === 0) return [];
+
+    const channels = await this.channelRepository.find({
+      guildId: { $in: guildIds },
+      type: ChannelType.REVIEW,
+    });
+
+    return channels.map(channel => ({
+      id: channel.id,
+      guildId: channel.guildId,
+      channelId: channel.channelId,
+      type: channel.type,
+    }));
   }
 
   async getChannelsByType(type: ChannelType): Promise<Channel[]> {

@@ -45,7 +45,7 @@ CREATE TABLE users (
  is_notification_enabled BOOLEAN DEFAULT true,
  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
- deleted_at TIMESTAMP
+ deleted_at TIMESTAMP,
  UNIQUE (discord_user_id, guild_id)
 );
 

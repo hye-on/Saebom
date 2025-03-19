@@ -1,7 +1,8 @@
-import { Entity, Property, PrimaryKey, ManyToOne, BaseEntity, Enum } from '@mikro-orm/core';
+import { Entity, Property, PrimaryKey, ManyToOne, Enum } from '@mikro-orm/core';
 import { User } from './user.entity';
 import { Problem } from './problem.entity';
 import { ReviewStep } from '../types';
+import { BaseEntity } from './base.entity';
 
 @Entity({ tableName: 'review_schedules' })
 export class ReviewSchedule extends BaseEntity {
@@ -14,7 +15,7 @@ export class ReviewSchedule extends BaseEntity {
   @ManyToOne(() => Problem)
   problem!: Problem;
 
-  @Property()
+  @Property({ persist: false })
   reviewDate!: Date;
 
   @Property()

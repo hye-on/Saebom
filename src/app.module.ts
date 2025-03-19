@@ -13,6 +13,7 @@ import { ScheduleModule } from '@nestjs/schedule';
 import { GradingModule } from './modules/core/grading/grading.module';
 import { SimilarityModule } from './modules/core/similarity/similarity.module';
 import { DiscordMessageModule } from './modules/domain/discord-message/discord-message.module';
+import { ReviewModule } from './modules/domain/review/review.module';
 
 @Module({
   imports: [
@@ -36,6 +37,7 @@ import { DiscordMessageModule } from './modules/domain/discord-message/discord-m
     GradingModule,
     SimilarityModule,
     DiscordMessageModule,
+    ReviewModule,
   ],
   controllers: [AppController],
   providers: [AppService],
