@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { EntityRepository } from '@mikro-orm/postgresql';
 import { UserProblemHistory } from '@src/database/entities';
 import { InjectRepository } from '@mikro-orm/nestjs';
+import { AnswerDetails, UserAnswer } from '@src/database/types';
 
 @Injectable()
 export class UserProblemHistoryRepository {
@@ -13,8 +14,8 @@ export class UserProblemHistoryRepository {
   async create(data: {
     userId: number;
     problemId: number;
-    userAnswer: any;
-    answerDetails: any;
+    userAnswer: UserAnswer;
+    answerDetails: AnswerDetails;
     isCorrect: boolean;
     solvedAt: Date;
   }): Promise<UserProblemHistory> {
