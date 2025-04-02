@@ -1,5 +1,5 @@
 import { Entity, PrimaryKey, Property, JsonType } from '@mikro-orm/core';
-import { DiscordMessageMetadata } from '../types/discord-message-metadate';
+import { DiscordMessageMetadata } from '../types/discord-message-metadata';
 import { BaseEntity } from './base.entity';
 
 @Entity({ tableName: 'discord_message' })

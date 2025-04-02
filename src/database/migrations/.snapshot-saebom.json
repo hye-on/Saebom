@@ -311,17 +311,6 @@
           "nullable": false,
           "length": 255,
           "mappedType": "string"
-        },
-        "type": {
-          "name": "type",
-          "type": "varchar(255)",
-          "unsigned": false,
-          "autoincrement": false,
-          "primary": false,
-          "nullable": false,
-          "length": 255,
-          "default": "'daily'",
-          "mappedType": "string"
         }
       },
       "name": "motivation_messages",
@@ -739,16 +728,6 @@
           "primary": false,
           "nullable": false,
           "mappedType": "integer"
-        },
-        "review_date": {
-          "name": "review_date",
-          "type": "timestamptz",
-          "unsigned": false,
-          "autoincrement": false,
-          "primary": false,
-          "nullable": false,
-          "length": 6,
-          "mappedType": "datetime"
         },
         "review_step": {
           "name": "review_step",

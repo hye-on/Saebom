@@ -4,5 +4,7 @@ export type ProblemMetadata = {
   type: DiscordMessageType.PROBLEM;
   problemId: number;
 };
-
-export type DiscordMessageMetadata = ProblemMetadata;
+export type EncouragementMetadata = {
+  type: DiscordMessageType.ENCOURAGEMENT;
+};
+export type DiscordMessageMetadata = ProblemMetadata | EncouragementMetadata;

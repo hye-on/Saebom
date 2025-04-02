@@ -1,5 +1,4 @@
 export * from './difficulty.type';
-export * from './motivation.type';
 export * from './notification.type';
 export * from './problem.type';
 export * from './cs-category.type';
