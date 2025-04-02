@@ -1,14 +1,11 @@
 import { Injectable } from '@nestjs/common';
-import { LoggerService } from '@src/common/logger/logger.service';
 import { MotivationMessageRepository } from './motivation-message.repository';
 import { MotivationMessage } from '@src/database/entities/motivation-message.entity';
 
+const DEFAULT_ENCOURAGEMENT_MESSAGE = '숨 고르기 후 다시 시작하면 더 멀리 갈 수 있어요! 새봄이가 도와줄께요!';
 @Injectable()
 export class MotivationMessageService {
-  constructor(
-    private readonly motivationMessageRepository: MotivationMessageRepository,
-    private readonly logger: LoggerService
-  ) {}
+  constructor(private readonly motivationMessageRepository: MotivationMessageRepository) {}
 
   async getTodayEncouragement(): Promise<string> {
     const message = await this.getRandomMessage();
@@ -16,6 +13,7 @@ export class MotivationMessageService {
     if (message) {
       return message.content;
     }
+    return DEFAULT_ENCOURAGEMENT_MESSAGE;
   }
 
   private async getRandomMessage(): Promise<MotivationMessage | null> {
