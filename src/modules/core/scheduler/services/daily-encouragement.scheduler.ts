@@ -9,7 +9,7 @@ import { CatchError } from '@src/common/decorators/catch-errors.decorator';
 import { MessageBatchSenderService } from '@src/modules/discord/services/message-batch-sender.service';
 import { DiscordMessageType } from '@src/modules/domain/discord-message/discord-message.type';
 import { ChannelMessage } from '@src/modules/discord/types/channel-message';
-import { MotivationMessageService } from '@src/modules/domain/motivation-message/motivatioin-message.service';
+import { MotivationMessageService } from '@src/modules/domain/motivation-message/motivation-message.service';
 
 type SendResult = {
   channelId: string;

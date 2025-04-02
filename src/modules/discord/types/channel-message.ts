@@ -1,4 +1,4 @@
-import { DiscordMessageMetadata } from '@src/database/types/discord-message-metadate';
+import { DiscordMessageMetadata } from '@src/database/types/discord-message-metadata';
 import { ActionRowBuilder, ButtonBuilder, EmbedBuilder } from 'discord.js';
 
 export interface ChannelMessage {
